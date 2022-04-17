@@ -22,6 +22,7 @@ function App() {
   const [txtVisible, setTxtVisible] = useState(false); // 文本颜色弹窗
   const [isSelectModal, setIsSelectModal] = useState(false); // 选择样式弹窗
   const [selectedNode, setSelectNode] = useState({});
+  const [txtSize, setTxtSize] = useState(false);
   let colorRef = useRef();
 
   useEffect(() => {
@@ -56,6 +57,7 @@ function App() {
       setBgc(node?.attrs?.body?.fill || '#5F95FF');
       setTransparent(node?.attrs?.body?.opacity);
       setTxtColor(node?.attrs?.text.fill)
+      setTxtSize(String(node?.attrs?.text.fontSize));
     });
   }, []);
 
@@ -151,12 +153,17 @@ function App() {
     }
   };
 
+  // 选择字体大小
+  const selectTxtSize = (val) => {
+    setTxtSize(val);
+  }
+
   // 确定选择样式弹窗
   const sureSelectModal = () => {
     selectedNode.attr('body/fill', bgc);
     selectedNode.attr('body/opacity', transparent); // 改变背景透明度
     selectedNode.attr('text/fill', txtColor);
-    selectedNode.attr('text/fontSize', 12); // 改变字体大小
+    selectedNode.attr('text/fontSize', txtSize); // 改变字体大小
     setIsSelectModal(false);
   };
 
@@ -186,6 +193,8 @@ function App() {
           txtVisible={txtVisible}
           cancelSelectModal={cancelSelectModal}
           sureSelectModal={sureSelectModal}
+          selectTxtSize={selectTxtSize}
+          txtSize={txtSize}
         />
       </div>}
       <Button

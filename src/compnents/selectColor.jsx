@@ -1,5 +1,5 @@
-import React, { Fragment, useState } from 'react';
-import { Input, Form, Slider, Button } from 'antd';
+import React, { Fragment } from 'react';
+import { Input, Form, Slider, Button, Select } from 'antd';
 import { CheckOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 import './index.scss';
@@ -12,10 +12,30 @@ const oftenColorList = ['#000000', '#434343', '#cccccc', '#d9d9d9', '#ffffff', '
   '#76a5af', '#6d9eeb', '#6fa8dc', '#8e7cc3', '#c27ba0', '#a61c00', '#cc0000', '#e69138',
   '#45818e', '#3c78d8', '#3d85c6', '#674ea7', '#a64d79', '#1c4587', '#073763', '#20124d',];
 
+const txtSizeList = [
+  {
+    label: '12px',
+    value: '12'
+  }, {
+    label: '13px',
+    value: '13'
+  }, {
+    label: '14px',
+    value: '14'
+  }, {
+    label: '15px',
+    value: '15',
+  }, {
+    label: '16px',
+    value: '16'
+  }
+];
+
 function SelectColorView(props) {
   const { bgc, sureColor, colorRef, selectedColor, onChangeTransparent,
     transparent, openColorVisoble, colorVisible, cancelTooTip, sureTooTip,
-    type, txtColor, txtVisible, cancelSelectModal, sureSelectModal } = props;
+    type, txtColor, txtVisible, cancelSelectModal, sureSelectModal, txtSize,
+    selectTxtSize } = props;
 
   const commonView = <Fragment>
     {type === 'fill' && <div className='selectColor_silder'>
@@ -62,6 +82,14 @@ function SelectColorView(props) {
         <div className="selectColor_text-example">
           <span style={{ marginRight: '5px', color: txtColor }}>示例</span>
           <span onClick={() => openColorVisoble('text')} className='selectColor-showColor' style={{ backgroundColor: txtColor }} />
+          <Select
+            value={txtSize}
+            style={{marginLeft: '5px'}}
+            options={txtSizeList}
+            size="small"
+            placeholder="请选择字体大小"
+            onChange={selectTxtSize}
+          />
           {txtVisible && <div className='selectColor_styles_modal'>
             {commonView}
           </div>}
@@ -89,11 +117,15 @@ SelectColorView.defaultProps = {
   txtVisible: false,
   cancelSelectModal: () => { },
   sureSelectModal: () => { },
+  txtSize: '12',
+  selectTxtSize: () => { },
 };
 
 SelectColorView.propTypes = {
   bgc: PropTypes.string,
   sureColor: PropTypes.func,
+  txtSize: PropTypes.string,
+  selectTxtSize: PropTypes.func,
 }
 
 export default SelectColorView;

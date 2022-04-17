@@ -31,8 +31,9 @@
   }
 
   .selectColor-title {
-    font-size: 12px;
+    font-size: 14px;
     line-height: 20px;
+    font-weight: 600;
   }
 
   .selectColor-icon {
@@ -61,6 +62,10 @@
 
   .selectColor_text {
     margin-top: 8px;
+
+    .ant-form-item {
+      margin: 0;
+    }
 
     .selectColor_text-example {
       display: flex;
